@@ -77,6 +77,10 @@ def main():
     print("Large nails in container: " + str(large_nails_number) + " +/- " + str(1.96*large_nails_number_uncertainty))
     print("Fruit loops in container: " + str(fruit_loops_number) + " +/- " + str(1.96*fruit_loops_number_uncertainty))
 
+    print("Small nail percent uncertainty: " + str(small_nails_number_uncertainty/small_nails_number))
+    print("Large nail precent uncertainty: " + str(large_nails_number_uncertainty/large_nails_number))
+    print("Fruit loop percent uncertainty: " + str(fruit_loops_number_uncertainty/fruit_loops_number))
+
 
 
 main()
