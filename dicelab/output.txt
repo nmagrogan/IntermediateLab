@@ -1,0 +1,132 @@
+
+216 dice calculations
+
+Standared deviation each dice : 5.47722557505
+Theoretical value and range individual dice 216: 36.0+/-10.7353621271
+ 
+Standared deviation 3 and 18 : 0.997682499782
+Theoretical value and range 3 and 18 216: 1.0+/-1.95545769957
+ 
+Standared deviation 4 and 17 : 1.71998062005
+Theoretical value and range 4 and 17 216: 3.0+/-3.37116201529
+ 
+Standared deviation 5 and 16 : 2.4152294577
+Theoretical value and range 5 and 16  216: 6.0+/-4.73384973709
+ 
+Standared deviation 6 and 15 : 3.08820935771
+Theoretical value and range 6 and 15  216: 10.0+/-6.05289034111
+ 
+Standared deviation 7 and 14 : 3.73608529524
+Theoretical value and range 7 and 14  216: 15.0+/-7.32272717868
+ 
+Standared deviation 8 and 13 : 4.35411682587
+Theoretical value and range 8 and 13  216: 21.0+/-8.53406897871
+ 
+Standared deviation 9 and 12 : 2.4152294577
+Theoretical value and range 9 and 12  216: 25.0+/-9.21543592345
+ 
+Standared deviation 10 and 11 : 2.4152294577
+Theoretical value and range 10 and 11  216: 27.0+/-9.52668882666
+chisquared red 216 2.88888888889
+chisquared green 216 13.9444444444
+chisquared white 216 2.38888888889
+chisquared all 216 21.7783068783
+
+ 432 dice calculations
+
+Standared deviation each dice : 7.74596669241
+Theoretical value and range individual dice 432: 72.0+/-15.1820947171
+ 
+Standared deviation 3 and 18 : 1.41093612213
+Theoretical value and range 3 and 18 432: 2.0+/-2.76543479938
+ 
+Standared deviation 4 and 17 : 2.43241991989
+Theoretical value and range 4 and 17 432: 6.0+/-4.76754304298
+ 
+Standared deviation 5 and 16 : 3.41565025532
+Theoretical value and range 5 and 16  432: 12.0+/-6.69467450043
+ 
+Standared deviation 6 and 15 : 4.36738755712
+Theoretical value and range 6 and 15  432: 20.0+/-8.56007961195
+ 
+Standared deviation 7 and 14 : 5.28362249472
+Theoretical value and range 7 and 14  432: 30.0+/-10.3559000896
+ 
+Standared deviation 8 and 13 : 6.1576510673
+Theoretical value and range 8 and 13  432: 42.0+/-12.0689960919
+ 
+Standared deviation 9 and 12 : 3.41565025532
+Theoretical value and range 9 and 12  432: 50.0+/-13.0325944661
+ 
+Standared deviation 10 and 11 : 3.41565025532
+Theoretical value and range 10 and 11  432: 54.0+/-13.4727725432
+chisquared red 432 3.86111111111
+chisquared green 432 6.05555555556
+chisquared white 432 3.05555555556
+chisquared all 432 22.9941798942
+
+ 648 dice calculations
+
+Standared deviation each dice : 9.48683298051
+Theoretical value and range individual dice 648: 108.0+/-18.5941926418
+ 
+Standared deviation 3 and 18 : 1.72803677944
+Theoretical value and range 3 and 18 648: 3.0+/-3.38695208771
+ 
+Standared deviation 4 and 17 : 2.97909382195
+Theoretical value and range 4 and 17 648: 9.0+/-5.83902389103
+ 
+Standared deviation 5 and 16 : 4.18330013267
+Theoretical value and range 5 and 16  648: 18.0+/-8.19926826003
+ 
+Standared deviation 6 and 15 : 5.34893551196
+Theoretical value and range 6 and 15  648: 30.0+/-10.4839136034
+ 
+Standared deviation 7 and 14 : 6.47108955277
+Theoretical value and range 7 and 14  648: 45.0+/-12.6833355234
+ 
+Standared deviation 8 and 13 : 7.5415515645
+Theoretical value and range 8 and 13  648: 63.0+/-14.7814410664
+ 
+Standared deviation 9 and 12 : 4.18330013267
+Theoretical value and range 9 and 12  648: 75.0+/-15.9616032333
+ 
+Standared deviation 10 and 11 : 4.18330013267
+Theoretical value and range 10 and 11  648: 81.0+/-16.5007090757
+chisquared red 648 4.01851851852
+chisquared green 648 12.1851851852
+chisquared white 648 2.51851851852
+chisquared all 648 17.394638448
+
+ 864 dice calculations
+
+Standared deviation each dice : 10.9544511501
+Theoretical value and range individual dice 864: 144.0+/-21.4707242542
+ 
+Standared deviation 3 and 18 : 1.99536499956
+Theoretical value and range 3 and 18 864: 4.0+/-3.91091539914
+ 
+Standared deviation 4 and 17 : 3.43996124009
+Theoretical value and range 4 and 17 864: 12.0+/-6.74232403058
+ 
+Standared deviation 5 and 16 : 4.8304589154
+Theoretical value and range 5 and 16  864: 24.0+/-9.46769947418
+ 
+Standared deviation 6 and 15 : 6.17641871542
+Theoretical value and range 6 and 15  864: 40.0+/-12.1057806822
+ 
+Standared deviation 7 and 14 : 7.47217059049
+Theoretical value and range 7 and 14  864: 60.0+/-14.6454543574
+ 
+Standared deviation 8 and 13 : 8.70823365174
+Theoretical value and range 8 and 13  864: 84.0+/-17.0681379574
+ 
+Standared deviation 9 and 12 : 4.8304589154
+Theoretical value and range 9 and 12  864: 100.0+/-18.4308718469
+ 
+Standared deviation 10 and 11 : 4.8304589154
+Theoretical value and range 10 and 11  864: 108.0+/-19.0533776533
+chisquared red 864 7.26388888889
+chisquared green 864 12.6805555556
+chisquared white 864 5.19444444444
+chisquared all 864 18.4386243386

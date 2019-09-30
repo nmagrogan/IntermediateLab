@@ -66,7 +66,7 @@ def main():
     green1_stdev = standard_deviation(green1,green1_average)
     total1_average = average(total1)
     total1_stdev = standard_deviation(total1,total1_average)
-
+    
     print "red1 average: " + str(red1_average) + " stdev: " + str(red1_stdev)
     print "green1 average: " + str(green1_average) + " stdev: " + str(green1_stdev)
     print "white1 average: " + str(white1_average) + " stdev: " + str(white1_stdev)
