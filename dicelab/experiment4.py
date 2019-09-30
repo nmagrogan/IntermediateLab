@@ -71,31 +71,31 @@ def main():
     print "green1 average: " + str(green1_average) + " stdev: " + str(green1_stdev)
     print "white1 average: " + str(white1_average) + " stdev: " + str(white1_stdev)
     print "total1 average: " + str(total1_average) + " stdev: " + str(total1_stdev)
-    '''
-    n, bins, patches = plt.hist(red1, 6, facecolor='blue', alpha=0.5, ec='black')
+
+    n, bins, patches = plt.hist(red1, bins=[0.5,1.5,2.5,3.5,4.5,5.5,6.5], facecolor='blue', alpha=0.5, ec='black')
     plt.xlabel('Dice Number')
     plt.ylabel('Count')
     plt.title(r'Red die 216 tosses')
     plt.show()
 
-    n, bins, patches = plt.hist(green1, 6, facecolor='blue', alpha=0.5, ec='black')
+    n, bins, patches = plt.hist(green1, bins=[0.5,1.5,2.5,3.5,4.5,5.5,6.5], facecolor='blue', alpha=0.5, ec='black')
     plt.xlabel('Dice Number')
     plt.ylabel('Count')
     plt.title(r'Green die 216 tosses')
     plt.show()
 
-    n, bins, patches = plt.hist(white1, 6, facecolor='blue', alpha=0.5, ec='black')
+    n, bins, patches = plt.hist(white1, bins=[0.5,1.5,2.5,3.5,4.5,5.5,6.5], facecolor='blue', alpha=0.5, ec='black')
     plt.xlabel('Dice Number')
     plt.ylabel('Count')
     plt.title(r'White die 216 tosses')
     plt.show()
 
-    n, bins, patches = plt.hist(total1, 16, facecolor='blue', alpha=0.5, ec='black')
+    n, bins, patches = plt.hist(total1, bins=[2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5], facecolor='blue', alpha=0.5, ec='black')
     plt.xlabel('Dice Number')
     plt.ylabel('Count')
     plt.title(r'All die 216 tosses')
     plt.show()
-    '''
+
 
     red2_average = average(red2)
     red2_stdev = standard_deviation(red2,red2_average)
@@ -112,31 +112,31 @@ def main():
     print "white2 average: " + str(white2_average) + " stdev: " + str(white2_stdev)
     print "total2 average: " + str(total2_average) + " stdev: " + str(total2_stdev)
 
-    '''
-    n, bins, patches = plt.hist(red2, 6, facecolor='blue', alpha=0.5, ec='black')
+
+    n, bins, patches = plt.hist(red2, bins=[0.5,1.5,2.5,3.5,4.5,5.5,6.5], facecolor='blue', alpha=0.5, ec='black')
     plt.xlabel('Dice Number')
     plt.ylabel('Count')
     plt.title(r'Red die 432 tosses')
     plt.show()
 
-    n, bins, patches = plt.hist(green2, 6, facecolor='blue', alpha=0.5, ec='black')
+    n, bins, patches = plt.hist(green2, bins=[0.5,1.5,2.5,3.5,4.5,5.5,6.5], facecolor='blue', alpha=0.5, ec='black')
     plt.xlabel('Dice Number')
     plt.ylabel('Count')
     plt.title(r'Green die 432 tosses')
     plt.show()
 
-    n, bins, patches = plt.hist(white2, 6, facecolor='blue', alpha=0.5, ec='black')
+    n, bins, patches = plt.hist(white2, bins=[0.5,1.5,2.5,3.5,4.5,5.5,6.5], facecolor='blue', alpha=0.5, ec='black')
     plt.xlabel('Dice Number')
     plt.ylabel('Count')
     plt.title(r'White die 432 tosses')
     plt.show()
 
-    n, bins, patches = plt.hist(total2, 16, facecolor='blue', alpha=0.5, ec='black')
+    n, bins, patches = plt.hist(total2, bins=[2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5], facecolor='blue', alpha=0.5, ec='black')
     plt.xlabel('Dice Number')
     plt.ylabel('Count')
     plt.title(r'All die 432 tosses')
     plt.show()
-    '''
+
 
 
 
@@ -157,31 +157,31 @@ def main():
     print "white3 average: " + str(white3_average) + " stdev: " + str(white3_stdev)
     print "total3 average: " + str(total3_average) + " stdev: " + str(total3_stdev)
 
-    '''
-    n, bins, patches = plt.hist(red3, 6, facecolor='blue', alpha=0.5, ec='black')
+
+    n, bins, patches = plt.hist(red3, bins=[0.5,1.5,2.5,3.5,4.5,5.5,6.5], facecolor='blue', alpha=0.5, ec='black')
     plt.xlabel('Dice Number')
     plt.ylabel('Count')
     plt.title(r'Red die 648 tosses')
     plt.show()
 
-    n, bins, patches = plt.hist(green3, 6, facecolor='blue', alpha=0.5, ec='black')
+    n, bins, patches = plt.hist(green3, bins=[0.5,1.5,2.5,3.5,4.5,5.5,6.5], facecolor='blue', alpha=0.5, ec='black')
     plt.xlabel('Dice Number')
     plt.ylabel('Count')
     plt.title(r'Green die 648 tosses')
     plt.show()
 
-    n, bins, patches = plt.hist(white3, 6, facecolor='blue', alpha=0.5, ec='black')
+    n, bins, patches = plt.hist(white3, bins=[0.5,1.5,2.5,3.5,4.5,5.5,6.5], facecolor='blue', alpha=0.5, ec='black')
     plt.xlabel('Dice Number')
     plt.ylabel('Count')
     plt.title(r'White die 648 tosses')
     plt.show()
 
-    n, bins, patches = plt.hist(total3, 16, facecolor='blue', alpha=0.5, ec='black')
+    n, bins, patches = plt.hist(total3, bins=[2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5], facecolor='blue', alpha=0.5, ec='black')
     plt.xlabel('Dice Number')
     plt.ylabel('Count')
     plt.title(r'All die 648 tosses')
     plt.show()
-    '''
+
 
 
 
@@ -202,31 +202,31 @@ def main():
     print "white average: " + str(white_average) + " stdev: " + str(white_stdev)
     print "total average: " + str(total_average) + " stdev: " + str(total_stdev)
 
-    '''
-    n, bins, patches = plt.hist(red, 6, facecolor='blue', alpha=0.5, ec='black')
+
+    n, bins, patches = plt.hist(red, bins=[0.5,1.5,2.5,3.5,4.5,5.5,6.5], facecolor='blue', alpha=0.5, ec='black')
     plt.xlabel('Dice Number')
     plt.ylabel('Count')
     plt.title(r'Red die 864 tosses')
     plt.show()
 
-    n, bins, patches = plt.hist(green, 6, facecolor='blue', alpha=0.5, ec='black')
+    n, bins, patches = plt.hist(green, bins=[0.5,1.5,2.5,3.5,4.5,5.5,6.5], facecolor='blue', alpha=0.5, ec='black')
     plt.xlabel('Dice Number')
     plt.ylabel('Count')
     plt.title(r'Green die 864 tosses')
     plt.show()
 
-    n, bins, patches = plt.hist(white, 6, facecolor='blue', alpha=0.5, ec='black')
+    n, bins, patches = plt.hist(white, bins=[0.5,1.5,2.5,3.5,4.5,5.5,6.5], facecolor='blue', alpha=0.5, ec='black')
     plt.xlabel('Dice Number')
     plt.ylabel('Count')
     plt.title(r'White die 864 tosses')
     plt.show()
 
-    n, bins, patches = plt.hist(total, 16, facecolor='blue', alpha=0.5, ec='black')
+    n, bins, patches = plt.hist(total, bins=[2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5], facecolor='blue', alpha=0.5, ec='black')
     plt.xlabel('Dice Number')
     plt.ylabel('Count')
     plt.title(r'All die 864 tosses')
     plt.show()
-    '''
+
 
 
 
