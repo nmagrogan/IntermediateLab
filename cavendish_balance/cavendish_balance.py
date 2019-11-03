@@ -3,16 +3,20 @@ import scipy as sci
 import csv
 import matplotlib.pyplot as plt
 import matplotlib.mlab as mlab
+from scipy import optimize
 from math import *
+import sys
 
 ############ measured data being put into various vars #################
-trial1_positions = np.loadtxt('position.dat', dtype='float')
-trial1_times =np.loadtxt('time.dat', dtype='float')
-
-trial1_method3_positions = trial1_positions[8:24]
-trial1_method3_times = trial1_times[8:24]
+positions = np.loadtxt(str(sys.argv[1]), dtype='float')
+positions = positions/1000 #m
+times =np.loadtxt(str(sys.argv[2]), dtype='float')
 
 
+method3_positions = positions[3:24]
+method3_times = times[3:24]
+
+G_expected = 6.67408 * 10**-11
 
 radius = 9.55 #mm
 radius = radius/1000 #m
@@ -35,8 +39,11 @@ L_uncertainty = 0.005
 
 #for method 1
 dimensionless_b = b**3 / (b**2 + 4*d**2)**(3/2)
-
+print dimensionless_b
 #########################################################################
+
+def percent_error(expected,measured):
+    return (abs(expected-measured)/expected) * 100
 
 def average(data_set):
     sum = 0
@@ -117,43 +124,86 @@ def G_method1(period,period_uncertainty, equilibrium_change,delta_S_uncertainty)
 def G_method1_correction(G):
     return G/(1-dimensionless_b)
 
+def G_method3(slope, slope_uncertainty):
+    G = (d*b**2*slope)/(m1*2*L)
+    G_uncertainty = G*sqrt((d_uncertainty/d)**2 + (b_uncertainty/b)**2 + (slope_uncertainty/slope)**2 + (m1_uncertainty/m1)**2 + (L_uncertainty/L)**2 )/2
+    return G, G_uncertainty
+
+def method2_function(x,A1,A2,A3,A4,A5):
+    return A1*np.exp(-A2*x)*np.cos((x*2*np.pi)/A3 + A4) + A5
+
 def main():
-
     #print G_method1(540,95) from last groups data
-    period = 1995.55/4
-    period_uncertainty = 0.005/4
-    trial1_method1, trial1_method1_uncertainty = G_method1(period,period_uncertainty ,95.48, 0.005)
-    trial1_method1_correction = G_method1_correction(trial1_method1)
-    print "Trial 1 method 1, uncetainty "
-    print trial1_method1, trial1_method1_uncertainty
-    print "trial 1 method 1 correction"
-    print trial1_method1_correction
+    #period = 1995.55/4
+    period = 4461.87/9
+    period_uncertainty = 0.005/9
+    method1, method1_uncertainty = G_method1(period,period_uncertainty ,96.68, 0.005)
+    method1_correction = G_method1_correction(method1)
+    print "\n-----Method 1 ----------"
+    print "method 1, uncetainty "
+    print method1, method1_uncertainty*1.96
+    print "percent error"
+    print percent_error(G_expected,method1)
+    print "method 1 correction"
+    print method1_correction
+    print "percent error"
+    print percent_error(G_expected,method1_correction)
 
+    print "\n-----Method 2-----------"
 
+    params, params_covariance = optimize.curve_fit(method2_function, times, positions, [.175,.0001,500,1,0.08])
+    #print params, params_covariance
+    perr = np.sqrt(np.diag(params_covariance))
+    print params
+    print perr
+
+    #y = method2_function(x,params[0],params[1],params[2],params[3],params[4])
+    plt.plot(times, method2_function(times,params[0],params[1],params[2],params[3],params[4]))
+
+    method2, method2_uncertainty = G_method1(params[2],perr[2] ,params[4]*1000, perr[4]*1000)
+    method2_correction = G_method1_correction(method2)
+    print "\nmethod 2, uncetainty "
+    print method2, method2_uncertainty*1.96
+    print "percent error"
+    print percent_error(G_expected,method2)
+    print "method 2 correction"
+    print method2_correction
+    print "percent error"
+    print percent_error(G_expected,method2_correction)
 
     #x = np.linspace(3,6.1,100)
     #y = n_slope*x+n_yint
-    plt.plot(trial1_times,trial1_positions,'-b')
+    plt.plot(times,positions,'bo')
     #plt.plot(1/(wavelengths_mercury**2), n_average,'bo')
     #plt.errorbar(1/(wavelengths_mercury**2),n_average,yerr=n_error,fmt="o")
     plt.xlabel("Time (s)")
-    plt.ylabel("Position (mm)")
-    plt.title("Position vs Time graph trial 1")
+    plt.ylabel("Position (m)")
+    plt.title("Position vs Time graph")
     plt.show()
 
-    n_slope, n_yint, n_sigma_slope, n_sigma_yint = regression(trial1_method3_times, trial1_method3_positions)
+
+    print "\n-----Method 3 -----------"
+    n_slope, n_yint, n_sigma_slope, n_sigma_yint = regression(method3_times**2, method3_positions)
     print "slope"
     print n_slope,n_sigma_slope*1.96
     print "yint"
     print n_yint, n_sigma_yint*1.96
-    x = np.linspace(35,120,100)
+
+    print "\nmethod 3"
+    method3, method3_uncertainty = G_method3(n_slope,n_sigma_slope)
+    print method3, method3_uncertainty*1.96
+    print "percent error"
+    print percent_error(G_expected,method3)
+
+
+    x = np.linspace(0,12000,100)
     y = n_slope*x+n_yint
     plt.plot(x,y,'-b')
 
-    plt.plot(trial1_method3_times,trial1_method3_positions,'bo')
-    plt.xlabel("Time (s)")
-    plt.ylabel("Position (mm)")
-    plt.title("Position vs Time graph trial 1\nMethod 3")
+    plt.plot(method3_times**2,method3_positions,'bo')
+    plt.xlabel("Time^2 (s^2)")
+    plt.ylabel("Position (m)")
+    plt.title("Position vs Time graph \nMethod 3")
     plt.show()
 
 main()
