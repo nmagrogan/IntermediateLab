@@ -34,7 +34,7 @@ m1 = 1.5 #kg
 m1_uncertainty = 0.05
 
 ####### need to re measure L ##########
-L = 3.36 #m
+L = 3.73 #m
 L_uncertainty = 0.005
 
 #for method 1
@@ -126,7 +126,7 @@ def G_method1_correction(G):
 
 def G_method3(slope, slope_uncertainty):
     G = (d*b**2*slope)/(m1*2*L)
-    G_uncertainty = G*sqrt((d_uncertainty/d)**2 + (b_uncertainty/b)**2 + (slope_uncertainty/slope)**2 + (m1_uncertainty/m1)**2 + (L_uncertainty/L)**2 )/2
+    G_uncertainty = G*sqrt((d_uncertainty/d)**2 + (2*b_uncertainty/b)**2 + (slope_uncertainty/slope)**2 + (m1_uncertainty/m1)**2 + (L_uncertainty/L)**2 )/2
     return G, G_uncertainty
 
 def method2_function(x,A1,A2,A3,A4,A5):
@@ -134,10 +134,10 @@ def method2_function(x,A1,A2,A3,A4,A5):
 
 def main():
     #print G_method1(540,95) from last groups data
-    period = 1995.55/4
-    #period = 4461.87/9
-    period_uncertainty = 0.005/4
-    method1, method1_uncertainty = G_method1(period,period_uncertainty ,95.48, 0.005)
+    #period = 1995.55/4
+    period = 4461.87/9
+    period_uncertainty = 0.005/9
+    method1, method1_uncertainty = G_method1(period,period_uncertainty ,96.68, 0.005)
     method1_correction = G_method1_correction(method1)
     print "\n-----Method 1 ----------"
     print "method 1, uncetainty "
