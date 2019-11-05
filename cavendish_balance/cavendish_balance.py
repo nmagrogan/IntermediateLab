@@ -134,10 +134,10 @@ def method2_function(x,A1,A2,A3,A4,A5):
 
 def main():
     #print G_method1(540,95) from last groups data
-    #period = 1995.55/4
-    period = 4461.87/9
-    period_uncertainty = 0.005/9
-    method1, method1_uncertainty = G_method1(period,period_uncertainty ,96.68, 0.005)
+    period = 1995.55/4
+    #period = 4461.87/9
+    period_uncertainty = 0.005/4
+    method1, method1_uncertainty = G_method1(period,period_uncertainty ,95.48, 0.005)
     method1_correction = G_method1_correction(method1)
     print "\n-----Method 1 ----------"
     print "method 1, uncetainty "

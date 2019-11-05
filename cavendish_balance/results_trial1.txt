@@ -1,37 +1,6 @@
-0.0082669427943
-
------Method 1 ----------
-method 1, uncetainty 
-8.44937449127e-11 5.76610619209e-12
-percent error
-26.5998383489
-method 1 correction
-8.51980725043e-11
-percent error
-27.6551562227
-
------Method 2-----------
-[ -9.60014694e-02   2.56903962e-04   4.95858962e+02  -3.15282343e-02
-   9.60198547e-02]
-[  6.22768125e-04   6.99456180e-06   2.96623287e-01   7.14538701e-03
-   2.40087153e-04]
-
-method 2, uncetainty 
-8.388444472e-11 5.74263150468e-12
-percent error
-25.6869032436
-method 2 correction
-8.45836932736e-11
-percent error
-26.734611023
-
------Method 3 -----------
-slope
-6.28133993264e-06 1.65686626969e-07
-yint
-0.0030543962273 0.00108136442589
-
-method 3
-6.73701749472e-11 2.4664593827e-12
-percent error
-0.94301378943
+Traceback (most recent call last):
+  File "cavendish_balance.py", line 13, in <module>
+    times =np.loadtxt(str(sys.argv[2]), dtype='float')
+  File "/usr/lib/python2.7/dist-packages/numpy/lib/npyio.py", line 896, in loadtxt
+    fh = iter(open(fname, 'U'))
+IOError: [Errno 2] No such file or directory: 'time_tiral1.dat.dat'
