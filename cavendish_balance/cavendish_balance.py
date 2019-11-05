@@ -196,7 +196,7 @@ def main():
     print percent_error(G_expected,method3)
 
 
-    x = np.linspace(0,12000,100)
+    x = np.linspace(0,13000,100)
     y = n_slope*x+n_yint
     plt.plot(x,y,'-b')
 
