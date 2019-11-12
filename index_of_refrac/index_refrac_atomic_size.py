@@ -93,7 +93,7 @@ def main():
     print n_error*1.96
     print " "
 
-    wavelengths = np.array([706.5,667.8,587.6,504.8,501.6,492.2,471.3,447.2])
+    wavelengths = np.array([706.5,667.8,587.6,504.8,501.6,492.2,471.3])
     wavelengths = wavelengths/1000
 
     n_slope, n_yint, n_sigma_slope, n_sigma_yint = regression(1/(wavelengths**2), n_average)

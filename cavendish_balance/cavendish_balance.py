@@ -125,7 +125,7 @@ def G_method1_correction(G):
     return G/(1-dimensionless_b)
 
 def G_method3(slope, slope_uncertainty):
-    G = (d*b**2*slope)/(m1*2*L)
+    G = (d*(b**2)*slope)/(m1*2*L)
     G_uncertainty = G*sqrt((d_uncertainty/d)**2 + (2*b_uncertainty/b)**2 + (slope_uncertainty/slope)**2 + (m1_uncertainty/m1)**2 + (L_uncertainty/L)**2 )/2
     return G, G_uncertainty
 
