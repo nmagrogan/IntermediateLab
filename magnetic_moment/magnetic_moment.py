@@ -62,7 +62,7 @@ N_coils = 195
 eff_rad_coils = 0.109 #m
 eff_sep_distance = 0.138 #m
 
-mu_naught = 1.256637e-6 #H/m
+mu_naught = 4*pi*(10**-7) #H/m
 
 radius_ball = d_ball/2
 radius_uncertainty = caliper_uncertainty/2
@@ -127,7 +127,9 @@ def magnetic_field_constant(I):
 
 def method2_magnetic_moment(slope,slope_uncertainty):
     moment = (4*(pi**2)*ball_moment)/slope
-    moment_uncertainty = 4*(pi**2)* moment* sqrt((slope_uncertainty/slope)**2 + (ball_uncertainty/ball_moment)**2)
+    du_ds = -4*(pi**2)*ball_moment/slope**2
+    du_dI = 4*(pi**2)/slope
+    moment_uncertainty = sqrt((du_ds*slope_uncertainty)**2+ (du_dI*ball_uncertainty)**2)
     return moment, moment_uncertainty
 
 
@@ -161,9 +163,9 @@ def main():
     print y_int_expected
 
     moment1 = slope*mass_slider*9.81
-    moment1_uncertainty = 9.81*moment1*sqrt((sigma_slope/slope)**2 + (scale_uncertainty/mass_slider)**2)
+    moment1_uncertainty = moment1*sqrt((sigma_slope/slope)**2 + (scale_uncertainty/mass_slider)**2)
     print "moment method 1"
-    print moment1, moment1_uncertainty
+    print moment1, moment1_uncertainty*1.96
 
 
     print "-------------------------------\n"
@@ -203,7 +205,7 @@ def main():
 
     moment2, moment2_uncertainty = method2_magnetic_moment(slope, sigma_slope)
     print "Method 2 moment "
-    print moment2, moment2_uncertainty
+    print moment2, moment2_uncertainty*1.96
 
     print "-------------------------------\n"
 
@@ -253,7 +255,7 @@ def main():
     plt.title("B as a function of 1/distance^3")
     plt.show()
 
-    method5_moment = 2*pi*slope/mu_naught
+    method5_moment = (2*pi/mu_naught)*slope
     print "method5 moment"
     print method5_moment
     method5_moment_uncertainty = (2*pi/mu_naught)*sigma_slope
