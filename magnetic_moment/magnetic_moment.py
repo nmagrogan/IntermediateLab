@@ -10,12 +10,10 @@ method1_location = np.loadtxt('method1_location.txt', dtype='float') #mm
 method1_location = method1_location/1000 #m
 
 method1_current = np.loadtxt('method1_current.txt',dtype='float') #A
-method2_periods = np.loadtxt('method2_periods.txt', dtype='float')
-#angles[0] = current
-#etc..
 
-method2_periods = method2_periods/20
-method2_currents = np.loadtxt('method2_currents.txt', dtype='float')
+method2_periods = np.loadtxt('method2_periods.txt', dtype='float')
+method2_periods = method2_periods/20 #s
+method2_currents = np.loadtxt('method2_currents.txt', dtype='float') #A
 
 method5_calib_current = np.loadtxt('method5_calib_current.txt',dtype='float') #A
 method5_calib_voltage = np.loadtxt('method5_calib_voltage.txt',dtype='float') #mV
@@ -42,7 +40,7 @@ d_ball = 53.77 #mm
 d_ball = d_ball/1000 #m
 
 mass_ball = 140.093 #g
-mass_ball = 140.093/1000 #kg
+mass_ball = mass_ball/1000 #kg
 
 length_hand = 12.47 #mm
 length_hand = length_hand/1000
@@ -128,8 +126,8 @@ def magnetic_field_constant(I):
     return B
 
 def method2_magnetic_moment(slope,slope_uncertainty):
-    moment = (4*pi*ball_moment)/slope
-    moment_uncertainty = 4*pi* moment* sqrt((slope_uncertainty/slope)**2 + (ball_uncertainty/ball_moment)**2)
+    moment = (4*(pi**2)*ball_moment)/slope
+    moment_uncertainty = 4*(pi**2)* moment* sqrt((slope_uncertainty/slope)**2 + (ball_uncertainty/ball_moment)**2)
     return moment, moment_uncertainty
 
 
@@ -173,9 +171,11 @@ def main():
     print "\n---------Method 2 ----------------"
     method2_B_fields = magnetic_field_constant(method2_currents)
 
+
     averages_periods = np.array([average(period) for period in method2_periods])
     stdev_periods = np.array([standard_deviation(period,average_value) for period,average_value in zip(method2_periods,averages_periods)])
     stdev_mean_periods = stdev_periods/sqrt(5)
+
     '''
     print ""
     print "Periods average"
@@ -253,10 +253,10 @@ def main():
     plt.title("B as a function of 1/distance^3")
     plt.show()
 
-    method5_moment = 2*pi*slope/mu_naught/10
+    method5_moment = 2*pi*slope/mu_naught
     print "method5 moment"
     print method5_moment
-    method5_moment_uncertainty = (2*pi/mu_naught)*sigma_slope /10
+    method5_moment_uncertainty = (2*pi/mu_naught)*sigma_slope
     print "method5 moment uncertainty"
     print method5_moment_uncertainty *1.96
 
