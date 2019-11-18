@@ -15,14 +15,17 @@ method2_periods = np.loadtxt('method2_periods.txt', dtype='float')
 method2_periods = method2_periods/20 #s
 method2_currents = np.loadtxt('method2_currents.txt', dtype='float') #A
 
+
+method3_currents = np.loadtxt('method3_currents.txt', dtype='float') #A
+
 method5_calib_current = np.loadtxt('method5_calib_current.txt',dtype='float') #A
-method5_calib_voltage = np.loadtxt('method5_calib_voltage.txt',dtype='float') #mV
-method5_calib_voltage = method5_calib_voltage/1000 #V
+method5_calib_voltage = np.loadtxt('method5_calib_voltage.txt',dtype='float') #V
+
 
 method5_distances = np.loadtxt('method5_distances.txt',dtype='float')#cm
 method5_distances = method5_distances/100 #m
-method5_voltages = np.loadtxt('method5_voltages.txt',dtype='float')#mV
-method5_voltages = method5_voltages /1000 #V
+method5_voltages = np.loadtxt('method5_voltages.txt',dtype='float')#V
+
 
 ##throwing out last 3 values
 method5_distances = method5_distances[0:8]
@@ -73,6 +76,11 @@ dI_dR = (4.0/5)*mass_ball*radius_ball
 ball_uncertainty = sqrt( (dI_dm*scale_uncertainty)**2 + (dI_dR*caliper_uncertainty)**2)
 print "Ball moment"
 print ball_moment, ball_uncertainty
+
+
+method3_omega= np.loadtxt('method3_omega.txt', dtype='float')
+method3_omega= (2*pi)/method3_omega
+method3_L = 2*pi*5 * ball_moment
 
 #########################################################################
 
@@ -153,8 +161,8 @@ def main():
 
     plt.plot(method1_B_fields, method1_r,'bo')
     #plt.errorbar(1/method2_B_fields, averages_periods**2,yerr=(stdev_mean_periods*1.96)**2,fmt="o")
-    plt.xlabel("B (T)")
-    plt.ylabel("r (m) ")
+    plt.xlabel("B [T]")
+    plt.ylabel("r [m] ")
     plt.title("r as a function of B ")
     plt.show()
 
@@ -198,8 +206,8 @@ def main():
 
     #plt.plot(1/method2_B_fields, averages_periods**2,'bo')
     plt.errorbar(1/method2_B_fields, averages_periods**2,yerr=(stdev_mean_periods*1.96)**2,fmt="o")
-    plt.xlabel("Period^2")
-    plt.ylabel("1/B ")
+    plt.xlabel("Period^2 [s^2]")
+    plt.ylabel("1/B [1/T]")
     plt.title("T^2 as a function of 1/B")
     plt.show()
 
@@ -210,7 +218,30 @@ def main():
     print "-------------------------------\n"
 
 
+############# METHOD 3 #############################
+    print "\n---------Method 3 ----------------"
+    method3_Bfields = magnetic_field_constant(method3_currents)
 
+
+    slope, yint, sigma_slope, sigma_yint = regression(method3_Bfields/method3_L,method3_omega)
+    print "slope"
+    print slope,sigma_slope*1.96
+    print "yint"
+    print yint, sigma_yint*1.96
+
+    x = np.linspace(1,4.5,100)
+    y = slope*x+yint
+    plt.plot(x,y,'-b')
+
+    plt.plot(method3_Bfields/method3_L,method3_omega,'bo')
+    #plt.errorbar(1/method2_B_fields, averages_periods**2,yerr=(stdev_mean_periods*1.96)**2,fmt="o")
+    plt.xlabel("B/L [T s/kg m^2]")
+    plt.ylabel("Angular frequency [Hz] ")
+    plt.title("Angular frequency as a function of B/L")
+    plt.show()
+
+
+    print "-------------------------------\n"
 ############# METHOD 5 #############################
     print "\n---------Method 5 ----------------"
     method5_calib_field = magnetic_field_constant(method5_calib_current) #T
@@ -221,14 +252,14 @@ def main():
     print "yint"
     print yint, sigma_yint*1.96
 
-    x = np.linspace(0,0.00055,100)
+    x = np.linspace(0,5.5,100)
     y = slope*x+yint
     plt.plot(x,y,'-b')
 
     plt.plot(method5_calib_voltage, method5_calib_field,'bo')
     #plt.errorbar(1/method2_B_fields, averages_periods**2,yerr=(stdev_mean_periods*1.96)**2,fmt="o")
-    plt.xlabel("voltage (V)")
-    plt.ylabel("B (T)")
+    plt.xlabel("voltage [V]")
+    plt.ylabel("B [T]")
     plt.title("B as a function of voltage")
     plt.show()
     print " "
@@ -250,8 +281,8 @@ def main():
 
     plt.plot(1/(method5_distances**3),method5_fields,'bo')
     #plt.errorbar(1/method2_B_fields, averages_periods**2,yerr=(stdev_mean_periods*1.96)**2,fmt="o")
-    plt.xlabel("1/distance^3 (1/m^3)")
-    plt.ylabel("B (T) ")
+    plt.xlabel("1/distance^3 [1/m^3]")
+    plt.ylabel("B [T] ")
     plt.title("B as a function of 1/distance^3")
     plt.show()
 
