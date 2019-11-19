@@ -18,6 +18,9 @@ method2_currents = np.loadtxt('method2_currents.txt', dtype='float') #A
 
 method3_currents = np.loadtxt('method3_currents.txt', dtype='float') #A
 
+method4_currents = np.loadtxt('method4_currents.txt',dtype='float') #A
+method4_forces = np.loadtxt('method4_forces.txt',dtype='float') #V
+
 method5_calib_current = np.loadtxt('method5_calib_current.txt',dtype='float') #A
 method5_calib_voltage = np.loadtxt('method5_calib_voltage.txt',dtype='float') #V
 
@@ -128,10 +131,19 @@ def regression(x,y):
 A = (N_coils*mu_naught*eff_rad_coils**2)/2
 B = 2/((eff_rad_coils**2 + (eff_sep_distance/2)**2)**(3/2.0))
 C1 = A*B
+print "C1", C1
 
 def magnetic_field_constant(I):
     B = C1*I
     return B
+
+A = (3*N_coils*mu_naught*eff_rad_coils**2*eff_sep_distance)/2
+B = 1/((eff_sep_distance**2)/4 + eff_rad_coils**2)**(5/2.0)
+C2 = A*B
+print "C2", C2
+def magnetic_field_gradient(I):
+    dbdz = C2*I
+    return dbdz
 
 def method2_magnetic_moment(slope,slope_uncertainty):
     moment = (4*(pi**2)*ball_moment)/slope
@@ -242,6 +254,30 @@ def main():
 
 
     print "-------------------------------\n"
+
+############# METHOD 4 #############################
+    print "\n---------Method 4 ----------------"
+    method4_gradient = magnetic_field_gradient(method4_currents)
+
+    slope, yint, sigma_slope, sigma_yint = regression(method4_gradient,method4_forces)
+    print "slope"
+    print slope,sigma_slope*1.96
+    print "yint"
+    print yint, sigma_yint*1.96
+
+    x = np.linspace(0,0.07,100)
+    y = slope*x+yint
+    plt.plot(x,y,'-b')
+
+    plt.plot(method4_gradient,method4_forces,'bo')
+    plt.xlabel("Magnetic Field Gradient [T/m]")
+    plt.ylabel("Force [N]")
+    plt.title("Gravitational force as a function of magnetic field gradient")
+    plt.show()
+
+    print "-------------------------------\n"
+
+
 ############# METHOD 5 #############################
     print "\n---------Method 5 ----------------"
     method5_calib_field = magnetic_field_constant(method5_calib_current) #T
