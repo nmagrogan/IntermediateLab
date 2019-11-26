@@ -8,27 +8,38 @@ from math import *
 ############ measured data being put into various vars #################
 
 ##### Data and constants #####
-mu_naught = 4*pi*10**7
+mu_naught = 4*pi*10**-7
 N_coils = 130
-coil_rad = 15 #cm #NEED TO MEASURE
-method1_current = 100 #A
-method2_potential = 350 #V
-method3_potential = 150 #V
+coil_rad = 100/(2*pi) #cm
+coil_rad = coil_rad/100 #m
+coil_rad = 0.15
+coil_rad_uncert = 0.005
 
+method1_current = 1.585 #A
+method2_potential = 344.5 #V
+method3_potential = 163.0 #V
+
+current_uncertainty = 0.05 #A
+
+radius_uncert = 0.05/100
+voltage_uncert = 1
 
 
 ### Measured data from files####
 method1_potentials = np.loadtxt('method1_potentials.dat', dtype='float') #V
-method1_diameters = np.loadtxt('method1_diameters.dat', dtype='float')
-method1_radii = method1_diameters/2
+method1_radii = np.loadtxt('method1_diameters.dat', dtype='float') #cm
+method1_radii = method1_radii/100
+
+fastest_electron_radii = method1_radii[0]
+
 
 method2_currents = np.loadtxt('method2_currents.dat', dtype='float') #V
 method2_diameters = np.loadtxt('method2_diameters.dat', dtype='float')
-method2_radii = method2_diameters/2
+method2_radii = method2_diameters/100
 
 method3_currents = np.loadtxt('method3_currents.dat', dtype='float') #V
 method3_diameters = np.loadtxt('method3_diameters.dat', dtype='float')
-method3_radii = method3_diameters/2
+method3_radii = method3_diameters/100
 
 
 
@@ -42,7 +53,7 @@ def average(data_set, data_set_uncertainty):
         sum = sum + data_set[i]
         sum2 += data_set_uncertainty[i]**2
     average = sum/np.size(data_set)
-    average_uncertainty = sqrt(sum2/np.size(data_set))
+    average_uncertainty = sqrt(sum2 / np.size(data_set))
     return average, average_uncertainty
 
 def standard_deviation(data_set,average):
@@ -91,12 +102,18 @@ def regression(x,y):
 
 def magnetic_field(I):
     B = (8.0/sqrt(125.0))*(mu_naught*N_coils*I/coil_rad)
-    B_uncertainty = 1
+    dbdr = (8.0/sqrt(125.0))*(-1)*(mu_naught*N_coils*I/coil_rad**2)
+    dbdi = (8.0/sqrt(125.0))*(mu_naught*N_coils/coil_rad)
+    B_uncertainty = np.sqrt((dbdr*coil_rad_uncert)**2 + (dbdi*current_uncertainty)**2 )
     return B, B_uncertainty
 
-def ratio(B,V,r):
-    em = (2*V)/(r**2*B**2)
-    em_uncertainty = np.ones(8)
+def ratio(B,V,r, b_uncert):
+    em = (2*V)/((r**2)*(B**2))
+
+    ddv = (2)/(r**2*B**2)
+    ddr = (-2)*(2*V)/(r**3*B**2)
+    ddb = (-2)*(2*V)/(r**2*B**3)
+    em_uncertainty = np.sqrt((ddv*voltage_uncert)**2 + (ddr*radius_uncert)**2 + (ddb*b_uncert)**2 )
     return em, em_uncertainty
 
 
@@ -106,14 +123,18 @@ def ratio(B,V,r):
 def main():
     print "\n----------Method 1-------------------"
     method1_B, method1_B_uncertainty = magnetic_field(method1_current)
-    method1_ratio,method1_ratio_uncertainty = ratio(method1_B,method1_potentials,method1_radii)
+
+
+    method1_ratio,method1_ratio_uncertainty = ratio(method1_B,method1_potentials,method1_radii, method1_B_uncertainty)
     print "Method 1 potentials"
     print method1_potentials
     print "Method 1 charge to mass ratios"
     print method1_ratio
+    #print method1_ratio_uncertainty
 
 
     method1_average, method1_average_uncertainty = average(method1_ratio,method1_ratio_uncertainty)
+    #method1_average, method1_average_uncertainty = weighted_average(method1_ratio,method1_ratio_uncertainty)
     method1_stdev = standard_deviation(method1_ratio, method1_average)
     print " "
     print "Method 1 average"
@@ -128,7 +149,7 @@ def main():
 
     print "\n----------Method 2-------------------"
     method2_B , method2_B_uncertainty= magnetic_field(method2_currents)
-    method2_ratio, method2_ratio_uncertainty = ratio(method2_B,method2_potential,method2_radii)
+    method2_ratio, method2_ratio_uncertainty = ratio(method2_B,method2_potential,method2_radii, method1_B_uncertainty)
     print "Method 2 potentials"
     print method2_currents
     print "Method 2 charge to mass ratios"
@@ -152,11 +173,11 @@ def main():
 
     print "\n----------Method 3-------------------"
     method3_B, method3_B_uncertainty = magnetic_field(method3_currents)
-    method3_ratio, method3_ratio_uncertainty = ratio(method3_B,method3_potential,method3_radii)
-    print "Method 2 potentials"
-    print method2_currents
-    print "Method 2 charge to mass ratios"
-    print method2_ratio
+    method3_ratio, method3_ratio_uncertainty = ratio(method3_B,method3_potential,method3_radii, method3_B_uncertainty)
+    print "Method 3 potentials"
+    print method3_currents
+    print "Method 3 charge to mass ratios"
+    print method3_ratio
 
     method3_average, method3_average_uncertainty = average(method3_ratio,method3_ratio_uncertainty)
     method3_stdev = standard_deviation(method3_ratio, method3_average)
@@ -172,8 +193,28 @@ def main():
 
     print "----------------------------------------\n"
 
+    print "\n-----Averageing all methods-------------"
 
+    all_em = np.array([method1_average,method2_average,method3_average])
+    all_prop = np.array([method1_average_uncertainty,method2_average_uncertainty,method3_average_uncertainty])
+    all_stats = np.array([method1_stdev,method2_stdev,method3_stdev])
 
+    weighted_avg_stats, weighted_avg_stats_uncert = weighted_average(all_em,all_stats)
+    weighted_avg_prop, weighted_avg_prop_uncert = weighted_average(all_em,all_prop)
+
+    print "Weighted average stats"
+    print weighted_avg_stats, weighted_avg_stats_uncert*1.96
+
+    print "weighted average prop"
+    print weighted_avg_prop, weighted_avg_prop_uncert
+
+    print "----------------------------------------\n"
+
+    print "fastest electron"
+    speed = weighted_avg_stats * fastest_electron_radii*method1_B
+    print speed
+    c = 2.99*10.0**8
+    print (speed/c) *100
 
 
 
