@@ -17,7 +17,7 @@ coil_rad_uncert = 0.005
 
 method1_current = 1.585 #A
 method2_potential = 344.5 #V
-method3_potential = 163.0 #V
+method3_potential = 163 #V
 
 current_uncertainty = 0.05 #A
 
@@ -130,7 +130,8 @@ def main():
     print method1_potentials
     print "Method 1 charge to mass ratios"
     print method1_ratio
-    #print method1_ratio_uncertainty
+    print "Method 1 charge to mass ratio uncertainties"
+    print method1_ratio_uncertainty
 
 
     method1_average, method1_average_uncertainty = average(method1_ratio,method1_ratio_uncertainty)
@@ -154,6 +155,8 @@ def main():
     print method2_currents
     print "Method 2 charge to mass ratios"
     print method2_ratio
+    print "Method 2 charge to mass ratio uncertainties"
+    print method2_ratio_uncertainty
 
     method2_average, method2_average_uncertainty = average(method2_ratio,method2_ratio_uncertainty)
     method2_stdev = standard_deviation(method2_ratio, method2_average)
@@ -178,6 +181,8 @@ def main():
     print method3_currents
     print "Method 3 charge to mass ratios"
     print method3_ratio
+    print "Method 3 charge to mass ratio uncertainties"
+    print method3_ratio_uncertainty
 
     method3_average, method3_average_uncertainty = average(method3_ratio,method3_ratio_uncertainty)
     method3_stdev = standard_deviation(method3_ratio, method3_average)
@@ -218,23 +223,6 @@ def main():
 
 
 
-    '''
-    slope, yint, sigma_slope, sigma_yint = regression(method1_B_fields, method1_r)
-    print "slope"
-    print slope,sigma_slope*1.96
-    print "yint"
-    print yint, sigma_yint*1.96
 
-    x = np.linspace(0.0025,.006,100)
-    y = slope*x+yint
-    plt.plot(x,y,'-b')
-
-    plt.plot(method1_B_fields, method1_r,'bo')
-    #plt.errorbar(1/method2_B_fields, averages_periods**2,yerr=(stdev_mean_periods*1.96)**2,fmt="o")
-    plt.xlabel("B [T]")
-    plt.ylabel("r [m] ")
-    plt.title("r as a function of B ")
-    plt.show()
-    '''
 
 main()
